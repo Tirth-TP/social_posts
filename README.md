@@ -176,5 +176,3 @@ Built for Kotlin + Spring Boot REST APIs.
 ## 📄 License
 
 This project is open-source and free to use.
-
-```
