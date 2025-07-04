@@ -2,8 +2,10 @@ name: CI
 
 on:
   push:
-    branches:
-      - master
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,29 +14,14 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v3
 
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.5.3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
         with:
-          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+          distribution: 'temurin'
+          java-version: '17'
 
-      - name: Add server to known hosts
-        run: |
-          ssh-keyscan -H 91.99.31.20 > ~/.ssh/known_hosts
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
 
-      - name: Build JAR
-        run: |
-          ./gradlew bootJar
-
-      - name: Deploy JAR to Server
-        run: |
-          JAR_NAME="spring_boot_crash_course-0.0.1-SNAPSHOT.jar"
-          LOCAL_JAR_PATH="build/libs/$JAR_NAME"
-          REMOTE_SERVER="admin@91.99.31.20"
-          REMOTE_JAR_DIR="/opt/notes"
-
-          rsync -avz -e "ssh" $LOCAL_JAR_PATH $REMOTE_SERVER:$REMOTE_JAR_DIR/$JAR_NAME
-
-          ssh $REMOTE_SERVER << EOF
-            mv $REMOTE_JAR_DIR/$JAR_NAME $REMOTE_JAR_DIR/notes.jar
-            sudo systemctl restart notes.service
-          EOF
+      - name: Build with Gradle
+        run: ./gradlew build
