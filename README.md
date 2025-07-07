@@ -1,11 +1,7 @@
----
-
-```md
 # Social Posts API
 
 A Kotlin-based Spring Boot REST API for user registration, login, and creating posts (title and body). It uses JWT for authentication and MongoDB as the database.
 
----
 
 ## 🚀 Features
 
