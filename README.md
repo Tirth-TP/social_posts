@@ -171,4 +171,4 @@ Built for Kotlin + Spring Boot REST APIs.
 
 ## 📄 License
 
-This project is open-source and free to use.
+This project is open-source and available under the [MIT License](./LICENSE).
