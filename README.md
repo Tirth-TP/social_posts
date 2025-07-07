@@ -164,8 +164,8 @@ Authorization: Bearer <token>
 
 ## 🧑‍💻 Author
 
-Tirth Patel
-Built for Kotlin + Spring Boot REST APIs.
+Created by **Tirth Patel**
+[GitHub - Tirth-TP](https://github.com/Tirth-TP)
 
 ---
 
